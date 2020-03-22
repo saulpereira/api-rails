@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ArticlesController do  
+describe ArticlesController do
     describe '#index' do
         subject { get :index }
 
@@ -59,7 +59,7 @@ describe ArticlesController do
 
     describe '#create' do
         subject { post :create }
-
+        
         context 'when no code provided' do
             it_behaves_like 'forbidden_requests'
         end
@@ -73,7 +73,6 @@ describe ArticlesController do
             let(:access_token) { create :access_token }
             before { request.headers['authorization'] = "Bearer #{access_token.token}" }
 
-
             context 'when invalid parameters provided' do
                 let(:invalid_attributes) do
                     {
@@ -85,6 +84,7 @@ describe ArticlesController do
                         }
                     }
                 end
+
                 subject { post :create, params: invalid_attributes }
 
                 it 'should return 422 status code' do
@@ -96,23 +96,24 @@ describe ArticlesController do
                     subject
                     expect(json['errors']).to include(
                         {
-                        "source" => { "pointer" => "/data/attributes/title" },
-                        "detail" => "can't be blank"
+                            "source" => { "pointer" => "/data/attributes/title" },
+                            "detail" =>  "can't be blank"
                         },
                         {
-                        "source" => { "pointer" => "/data/attributes/content" },
-                        "detail" => "can't be blank"
+                            "source" => { "pointer" => "/data/attributes/content" },
+                            "detail" =>  "can't be blank"
                         },
                         {
-                        "source" => { "pointer" => "/data/attributes/slug" },
-                        "detail" => "can't be blank"
+                            "source" => { "pointer" => "/data/attributes/slug" },
+                            "detail" =>  "can't be blank"
                         }
                     )
                 end
             end
 
             context 'when success request sent' do
+
             end
         end
     end
-end 
+end
